@@ -14,8 +14,10 @@
           </ul>
         </nav>
       </div>
+
       <!-- Header title + text -->
       <div class="head-text">
+        <img src="./assets/pattern-rings.svg" alt="decorative rings image" id="rings" />
         <h1>
           Nice to meet you!<br />
           I'm <strong>Adam Keyes.</strong>
@@ -24,25 +26,61 @@
           Based in the UK, I'm a front-end developer passionate about building accessible web apps
           that users love.
         </p>
-        <div class="contact-circle">
-          <a href="#" target="_blank" id="contact-me">contact me</a>
-          <svg xmlns="http://www.w3.org/2000/svg" width="129" height="129">
-            <circle
-              cx="830.5"
-              cy="585.5"
-              r="64"
-              fill="none"
-              stroke="#FFF"
-              transform="translate(-766 -521)"
-            />
-          </svg>
-        </div>
+        <a href="#" target="_blank" id="contact-me" class="contact">contact me</a>
       </div>
-      <!-- Header picture -->
+
+      <!-- Header picture + circle svg -->
       <div class="head-picture">
         <img src="../src/assets/image-profile-desktop.webp" alt="Profile picture of Adam Keyes" />
+        <svg xmlns="http://www.w3.org/2000/svg" width="129" height="129">
+          <circle
+            cx="830.5"
+            cy="585.5"
+            r="64"
+            fill="none"
+            stroke="#FFF"
+            transform="translate(-766 -521)"
+          />
+        </svg>
       </div>
     </header>
+
+    <!-- Stacks section -->
+    <section class="stacks">
+      <div class="stack lighter-clr" v-for="stack in stacks" :key="stack.tech">
+        <h3>{{ stack.tech }}</h3>
+        <p>{{ stack.year }}</p>
+      </div>
+      <img src="./assets/pattern-rings.svg" alt="decorative rings image" id="rings-stacks" />
+    </section>
+
+    <!-- Projects section -->
+    <section class="projects">
+      <div class="title-contact">
+        <h2>Projects</h2>
+        <a href="#" target="_blank" class="contact">contact me</a>
+      </div>
+
+      <div class="projects-grid">
+        <div class="project" v-for="project in projects" :key="project.title">
+          <div class="project-img-view">
+            <a href="#">
+              <div class="hover-links">
+                <a href="#" target="_blank" class="contact">view project</a>
+                <a href="#" target="_blank" class="contact">view code</a>
+              </div>
+              <img :src="project.img" alt="project.alt" />
+            </a>
+          </div>
+          <div class="legend-txt">
+            <h4>{{ project.title }}</h4>
+            <p>
+              <span v-for="tech in project.techs" :key="tech">{{ tech }}</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -73,6 +111,64 @@ export default {
           alt: 'link to twitter',
         },
       ],
+      stacks: [
+        {
+          tech: 'HTML',
+          year: '4 Years Experience',
+        },
+        {
+          tech: 'CSS',
+          year: '4 Years Experience',
+        },
+        {
+          tech: 'Javascript',
+          year: '4 Years Experience',
+        },
+        {
+          tech: 'Accessibility',
+          year: '4 Years Experience',
+        },
+        {
+          tech: 'React',
+          year: '3 Years Experience',
+        },
+        {
+          tech: 'Sass',
+          year: '3 Years Experience',
+        },
+      ],
+      projects: [
+        {
+          title: 'design portfolio',
+          img: require('@/assets/thumbnails/thumbnail-project-1-large.webp'),
+          techs: ['html', 'css'],
+        },
+        {
+          title: 'e-learning landing page',
+          img: require('@/assets/thumbnails/thumbnail-project-2-large.webp'),
+          techs: ['html', 'css'],
+        },
+        {
+          title: 'Todo web app',
+          img: require('@/assets/thumbnails/thumbnail-project-3-large.webp'),
+          techs: ['html', 'css', 'javascript'],
+        },
+        {
+          title: 'Entertainment web app',
+          img: require('@/assets/thumbnails/thumbnail-project-4-large.webp'),
+          techs: ['html', 'css', 'javascript'],
+        },
+        {
+          title: 'Memory Game',
+          img: require('@/assets/thumbnails/thumbnail-project-5-large.webp'),
+          techs: ['html', 'css', 'javascript'],
+        },
+        {
+          title: 'Art gallery showcase',
+          img: require('@/assets/thumbnails/thumbnail-project-6-large.webp'),
+          techs: ['html', 'css', 'javascript'],
+        },
+      ],
     };
   },
 };
@@ -97,6 +193,7 @@ export default {
   /* Fonts sizes */
   --xl-font-size: 88px;
   --l-font-size: 48px;
+  --lm-font-size: 32px;
   --m-font-size: 24px;
   --s-font-size: 18px;
 
@@ -109,6 +206,9 @@ export default {
   /* Letter spacing */
   --h1-char-spacing: -2.5px;
   --h2-char-spacing: -1.5px;
+
+  /* randoms props */
+  --global-padding: 15%;
 }
 
 * {
@@ -119,6 +219,7 @@ export default {
   border: none;
   box-sizing: border-box;
   font-family: 'Grotesk', 'sans-serif';
+  z-index: 1;
 }
 
 img {
@@ -135,7 +236,8 @@ h2 {
   font-weight: bold;
 }
 
-h1 {
+h1,
+.title-contact h2 {
   font-size: var(--xl-font-size);
   line-height: var(--xl-line-height);
   letter-spacing: var(--h1-char-spacing);
@@ -153,8 +255,14 @@ h3 {
   line-height: var(--m-line-height);
 }
 
+h4 {
+  text-transform: uppercase;
+  font-size: var(--s-font-size);
+  color: var(--clr-lighter);
+}
+
 p,
-#contact-me {
+.contact {
   font-size: var(--s-font-size);
   line-height: var(--s-line-height);
   font-weight: normal;
@@ -162,7 +270,9 @@ p,
 
 #app {
   background-color: var(--clr-darker);
-  padding: 1rem 10% 0;
+  padding: 1rem var(--global-padding) 0;
+  min-height: 150dvh; /* !!!!!!!!!!!!!!!!!!!!!!! a remove */
+  overflow: hidden;
 }
 
 .head-bar {
@@ -170,9 +280,15 @@ p,
   align-items: center;
   justify-content: space-between;
 }
+
+.head-bar p strong {
+  font-size: var(--lm-font-size);
+}
+
 h1 strong {
   box-shadow: 0 5px var(--clr-green);
 }
+
 nav ul {
   display: flex;
 }
@@ -181,28 +297,126 @@ nav ul li {
   padding: 0.7rem 0.7rem;
 }
 
+nav ul li a img:hover {
+  transition: 0.3s;
+  transform: scale(1.2);
+}
+
 .head-text {
-  border: 2px solid var(--clr-red);
-  padding: 7rem 0;
+  padding: 7rem 0 9rem;
+  position: relative;
+}
+
+#rings {
+  position: absolute;
+  top: 2.8rem;
+  left: -15.7rem;
 }
 
 .head-text p {
   color: var(--clr-light);
   width: 27rem;
-  padding: 3rem 0;
+  padding: 3.5rem 0 3.5rem 0;
 }
 
-.contact-circle {
-  border: 2px solid rgb(18, 107, 163);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-#contact-me {
-  color: var(--clr-light);
+.contact {
+  color: var(--clr-lighter);
   text-transform: uppercase;
   border-bottom: solid 2px var(--clr-green);
   padding: 0 0 0.4rem 0;
+  transition: color 0.3s;
+}
+
+.contact:hover {
+  color: var(--clr-green);
+  border: none;
+}
+
+.head-picture {
+  width: 445px;
+  height: 720px;
+  position: absolute;
+  top: 0;
+  right: var(--global-padding);
+  z-index: 0;
+}
+
+.head-picture svg {
+  position: absolute;
+  bottom: 70px;
+  left: -64.5px;
+}
+
+/* Stacks section */
+.stacks {
+  border-top: 2px solid var(--clr-light);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  margin: 5rem 0;
+  padding: 4rem 0 0;
+  position: relative;
+}
+
+.stack p {
+  color: var(--clr-light);
+  padding: 1rem 0 3.5rem;
+}
+
+.stacks img {
+  position: absolute;
+  bottom: 0;
+  right: -15.7rem;
+}
+
+/* Projects section */
+
+.title-contact {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.projects-grid {
+  display: grid;
+  justify-content: space-between;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-row-gap: 3rem;
+  grid-column-gap: 5%;
+  margin-top: 5rem;
+}
+
+.project-img-view {
+  position: relative;
+}
+
+.project-img-view img:hover {
+  opacity: 0.3;
+}
+
+.hover-links:hover .img-gallery {
+  opacity: 0.3;
+}
+
+.hover-links {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.legend-txt {
+  padding: 0.8rem 0 0 0;
+}
+
+.legend-txt p span {
+  color: var(--clr-light);
+  margin: 0 1rem 0 0;
 }
 </style>
