@@ -209,6 +209,8 @@ export default {
 
   /* randoms props */
   --global-padding: 15%;
+  --global-padding-tablet: 5%;
+  --global-padding-phone: 1rem;
 }
 
 * {
@@ -244,6 +246,26 @@ h1,
   color: var(--clr-lighter);
 }
 
+@media screen and (max-width: 651px) {
+  .title-contact h2 {
+    font-size: var(--l-font-size);
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  h1 {
+    max-width: 30rem;
+  }
+}
+
+@media screen and (max-width: 651px) {
+  h1 {
+    max-width: 100%;
+    text-align: center;
+    font-size: var(--l-font-size);
+  }
+}
+
 h2 {
   font-size: var(--l-font-size);
   line-height: var(--l-line-height);
@@ -275,14 +297,46 @@ p,
   overflow: hidden;
 }
 
+@media screen and (max-width: 1024px) {
+  #app {
+    padding: 1rem var(--global-padding-tablet) 0;
+  }
+}
+
+@media screen and (max-width: 651px) {
+  #app {
+    padding: 1rem var(--global-padding-phone);
+  }
+}
+
+@media screen and (max-width: 651px) {
+  header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
 .head-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+@media screen and (max-width: 651px) {
+  .head-bar {
+    flex-direction: column;
+  }
+}
+
 .head-bar p strong {
   font-size: var(--lm-font-size);
+}
+
+@media screen and (max-width: 651px) {
+  .head-bar p {
+    padding: 1.2rem 0;
+  }
 }
 
 h1 strong {
@@ -297,6 +351,12 @@ nav ul li {
   padding: 0.7rem 0.7rem;
 }
 
+@media screen and (max-width: 651px) {
+  nav ul li {
+    padding: 0.7rem 1rem;
+  }
+}
+
 nav ul li a img:hover {
   transition: 0.3s;
   transform: scale(1.2);
@@ -307,16 +367,56 @@ nav ul li a img:hover {
   position: relative;
 }
 
+@media screen and (max-width: 1024px) {
+  .head-text {
+    padding: 5.1rem 0 9rem;
+  }
+}
+
+@media screen and (max-width: 651px) {
+  .head-text {
+    width: 100%;
+    text-align: center;
+    order: 3;
+  }
+}
+
 #rings {
   position: absolute;
   top: 2.8rem;
   left: -15.7rem;
 }
 
+@media screen and (max-width: 1024px) {
+  #rings {
+    top: 1rem;
+  }
+}
+
+@media screen and (max-width: 651px) {
+  #rings {
+    top: -23rem;
+  }
+}
+
 .head-text p {
   color: var(--clr-light);
   width: 27rem;
   padding: 3.5rem 0 3.5rem 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .head-text p {
+    width: 26rem;
+    padding: 3.5rem 0 3rem 0;
+  }
+}
+
+@media screen and (max-width: 651px) {
+  .head-text p {
+    width: auto;
+    padding: 3.5rem;
+  }
 }
 
 .contact {
@@ -341,10 +441,33 @@ nav ul li a img:hover {
   z-index: 0;
 }
 
+@media screen and (max-width: 1024px) {
+  .head-picture {
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 651px) {
+  .head-picture {
+    max-width: 80%;
+    height: auto;
+    position: relative;
+    inset: unset;
+    order: 0;
+  }
+}
+
 .head-picture svg {
   position: absolute;
   bottom: 70px;
   left: -64.5px;
+}
+
+@media screen and (max-width: 1024px) {
+  .head-picture svg {
+    left: unset;
+    right: -64.5px;
+  }
 }
 
 /* Stacks section */
@@ -358,15 +481,36 @@ nav ul li a img:hover {
   position: relative;
 }
 
+@media screen and (max-width: 651px) {
+  .stacks {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: 2px solid var(--clr-light);
+  }
+}
+
 .stack p {
   color: var(--clr-light);
   padding: 1rem 0 3.5rem;
+}
+
+@media screen and (max-width: 651px) {
+  .stack {
+    text-align: center;
+  }
 }
 
 .stacks img {
   position: absolute;
   bottom: 0;
   right: -15.7rem;
+}
+
+@media screen and (max-width: 651px) {
+  .stacks img {
+    bottom: -45px;
+  }
 }
 
 /* Projects section */
@@ -377,6 +521,12 @@ nav ul li a img:hover {
   justify-content: space-between;
 }
 
+@media screen and (max-width: 651px) {
+  .title-contact {
+    align-items: center;
+  }
+}
+
 .projects-grid {
   display: grid;
   justify-content: space-between;
@@ -385,6 +535,21 @@ nav ul li a img:hover {
   grid-row-gap: 3rem;
   grid-column-gap: 5%;
   margin-top: 5rem;
+}
+
+@media screen and (max-width: 1024px) {
+  .projects-grid {
+    grid-column-gap: 3%;
+  }
+}
+
+@media screen and (max-width: 651px) {
+  .projects-grid {
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(auto, 1fr);
+    grid-row-gap: 5.5rem;
+    padding-bottom: 4rem;
+  }
 }
 
 .project-img-view {
@@ -409,6 +574,18 @@ nav ul li a img:hover {
   flex-direction: column;
   align-items: center;
   gap: 3rem;
+}
+
+@media screen and (max-width: 651px) {
+  .hover-links {
+    top: unset;
+    left: unset;
+    bottom: -7rem;
+    transform: translate(0);
+    flex-direction: row;
+    width: 100%;
+    gap: 2rem;
+  }
 }
 
 .legend-txt {
