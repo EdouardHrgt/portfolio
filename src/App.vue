@@ -1,83 +1,116 @@
 <template>
   <div id="app">
-    <header>
-      <!-- Header navigation bar -->
-      <div class="head-bar">
-        <p><strong class="lighter-clr">adamkeyes</strong></p>
-        <nav>
-          <ul>
-            <li v-for="link in socials" :key="link.name">
-              <a href="#" target="_blank">
-                <img :src="link.img" :alt="link.alt" />
+    <div class="global-wrapper">
+      <header>
+        <!-- Header navigation bar -->
+        <div class="head-bar">
+          <p><strong class="lighter-clr">adamkeyes</strong></p>
+          <nav>
+            <ul>
+              <li v-for="link in socials" :key="link.name">
+                <a href="#" target="_blank">
+                  <img :src="link.img" :alt="link.alt" />
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <!-- Header title + text -->
+        <div class="head-text">
+          <img src="./assets/pattern-rings.svg" alt="decorative rings image" id="rings" />
+          <h1>
+            Nice to meet you!<br />
+            I'm <strong>Adam Keyes.</strong>
+          </h1>
+          <p>
+            Based in the UK, I'm a front-end developer passionate about building accessible web apps
+            that users love.
+          </p>
+          <a href="#" target="_blank" id="contact-me" class="contact">contact me</a>
+        </div>
+
+        <!-- Header picture + circle svg -->
+        <div class="head-picture">
+          <img src="../src/assets/image-profile-desktop.webp" alt="Profile picture of Adam Keyes" />
+          <svg xmlns="http://www.w3.org/2000/svg" width="129" height="129">
+            <circle
+              cx="830.5"
+              cy="585.5"
+              r="64"
+              fill="none"
+              stroke="#FFF"
+              transform="translate(-766 -521)"
+            />
+          </svg>
+        </div>
+      </header>
+
+      <!-- Stacks section -->
+      <section class="stacks">
+        <div class="stack lighter-clr" v-for="stack in stacks" :key="stack.tech">
+          <h3>{{ stack.tech }}</h3>
+          <p>{{ stack.year }}</p>
+        </div>
+        <img src="./assets/pattern-rings.svg" alt="decorative rings image" id="rings-stacks" />
+      </section>
+
+      <!-- Projects section -->
+      <section class="projects">
+        <div class="title-contact">
+          <h2>Projects</h2>
+          <a href="#" target="_blank" class="contact">contact me</a>
+        </div>
+
+        <div class="projects-grid">
+          <div class="project" v-for="project in projects" :key="project.title">
+            <div class="project-img-view">
+              <a href="#">
+                <div class="hover-links">
+                  <a href="#" target="_blank" class="contact">view project</a>
+                  <a href="#" target="_blank" class="contact">view code</a>
+                </div>
+                <img :src="project.img" alt="project.alt" />
               </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-
-      <!-- Header title + text -->
-      <div class="head-text">
-        <img src="./assets/pattern-rings.svg" alt="decorative rings image" id="rings" />
-        <h1>
-          Nice to meet you!<br />
-          I'm <strong>Adam Keyes.</strong>
-        </h1>
-        <p>
-          Based in the UK, I'm a front-end developer passionate about building accessible web apps
-          that users love.
-        </p>
-        <a href="#" target="_blank" id="contact-me" class="contact">contact me</a>
-      </div>
-
-      <!-- Header picture + circle svg -->
-      <div class="head-picture">
-        <img src="../src/assets/image-profile-desktop.webp" alt="Profile picture of Adam Keyes" />
-        <svg xmlns="http://www.w3.org/2000/svg" width="129" height="129">
-          <circle
-            cx="830.5"
-            cy="585.5"
-            r="64"
-            fill="none"
-            stroke="#FFF"
-            transform="translate(-766 -521)"
-          />
-        </svg>
-      </div>
-    </header>
-
-    <!-- Stacks section -->
-    <section class="stacks">
-      <div class="stack lighter-clr" v-for="stack in stacks" :key="stack.tech">
-        <h3>{{ stack.tech }}</h3>
-        <p>{{ stack.year }}</p>
-      </div>
-      <img src="./assets/pattern-rings.svg" alt="decorative rings image" id="rings-stacks" />
-    </section>
-
-    <!-- Projects section -->
-    <section class="projects">
-      <div class="title-contact">
-        <h2>Projects</h2>
-        <a href="#" target="_blank" class="contact">contact me</a>
-      </div>
-
-      <div class="projects-grid">
-        <div class="project" v-for="project in projects" :key="project.title">
-          <div class="project-img-view">
-            <a href="#">
-              <div class="hover-links">
-                <a href="#" target="_blank" class="contact">view project</a>
-                <a href="#" target="_blank" class="contact">view code</a>
-              </div>
-              <img :src="project.img" alt="project.alt" />
-            </a>
+            </div>
+            <div class="legend-txt">
+              <h4>{{ project.title }}</h4>
+              <p>
+                <span v-for="tech in project.techs" :key="tech">{{ tech }}</span>
+              </p>
+            </div>
           </div>
-          <div class="legend-txt">
-            <h4>{{ project.title }}</h4>
-            <p>
-              <span v-for="tech in project.techs" :key="tech">{{ tech }}</span>
-            </p>
-          </div>
+        </div>
+      </section>
+    </div>
+    <!-- Contact section -->
+    <section class="contact-section">
+      <div class="contact-form-text">
+        <div class="contact-text">
+          <h2>Contact</h2>
+          <p>
+            I would love to hear about your project and how I could help. Please fill in the form,
+            and I’ll get back to you as soon as possible.
+          </p>
+        </div>
+        <div class="contact-form">
+          <form action="post">
+            <div class="form-group">
+              <label for="name">name</label>
+              <input type="text" name="name" id="name" minlength="3" required />
+            </div>
+            <div class="form-group">
+              <label for="email">email</label>
+              <input type="email" name="email" id="email" required />
+            </div>
+            <div class="form-group">
+              <label for="message">message</label>
+              <input type="t" name="message" id="message" minlength="10" required />
+            </div>
+            <div class="form-group">
+              <input type="submit" value="send message" />
+            </div>
+          </form>
         </div>
       </div>
     </section>
@@ -292,19 +325,21 @@ p,
 
 #app {
   background-color: var(--clr-darker);
+}
+
+.global-wrapper {
   padding: 1rem var(--global-padding) 0;
-  min-height: 150dvh; /* !!!!!!!!!!!!!!!!!!!!!!! a remove */
   overflow: hidden;
 }
 
 @media screen and (max-width: 1024px) {
-  #app {
+  .global-wrapper {
     padding: 1rem var(--global-padding-tablet) 0;
   }
 }
 
 @media screen and (max-width: 651px) {
-  #app {
+  .global-wrapper {
     padding: 1rem var(--global-padding-phone);
   }
 }
@@ -595,5 +630,23 @@ nav ul li a img:hover {
 .legend-txt p span {
   color: var(--clr-light);
   margin: 0 1rem 0 0;
+}
+
+/* Contact */
+.contact-section {
+  margin-top: 7rem;
+  background-color: var(--clr-dark);
+  padding: 3rem var(--global-padding);
+}
+
+.contact-text h2 {
+  color: var(--clr-lighter);
+}
+
+.contact-text p {
+  font-size: var(--s-font-size);
+  color: var(--clr-light);
+  max-width: 27rem;
+  padding: 1.5rem 0 0 0;
 }
 </style>
