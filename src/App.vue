@@ -83,9 +83,11 @@
         </div>
       </section>
     </div>
+
     <!-- Contact section -->
     <section class="contact-section">
-      <div class="contact-form-text">
+      <img src="./assets/pattern-rings.svg" alt="decorative rings image" id="rings-contact" />
+      <div class="contact-grid">
         <div class="contact-text">
           <h2>Contact</h2>
           <p>
@@ -93,6 +95,7 @@
             and I’ll get back to you as soon as possible.
           </p>
         </div>
+
         <div class="contact-form">
           <form action="post">
             <div class="form-group">
@@ -105,7 +108,7 @@
             </div>
             <div class="form-group">
               <label for="message">message</label>
-              <input type="t" name="message" id="message" minlength="10" required />
+              <textarea name="message" id="message" cols="30" rows="10" required></textarea>
             </div>
             <div class="form-group">
               <input type="submit" value="send message" />
@@ -113,6 +116,20 @@
           </form>
         </div>
       </div>
+
+      <!--Footer nav bar-->
+      <footer>
+        <p><strong class="lighter-clr">adamkeyes</strong></p>
+        <nav>
+          <ul>
+            <li v-for="link in socials" :key="link.name">
+              <a href="#" target="_blank">
+                <img :src="link.img" :alt="link.alt" />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </footer>
     </section>
   </div>
 </template>
@@ -352,19 +369,30 @@ p,
   }
 }
 
-.head-bar {
+.head-bar,
+footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
+footer {
+  padding: 2.5rem 0 0 0;
+}
+
 @media screen and (max-width: 651px) {
-  .head-bar {
+  .head-bar,
+  footer {
     flex-direction: column;
+  }
+
+  footer p {
+    margin: 0 0 1rem 0;
   }
 }
 
-.head-bar p strong {
+.head-bar p strong,
+footer p strong {
   font-size: var(--lm-font-size);
 }
 
@@ -637,6 +665,34 @@ nav ul li a img:hover {
   margin-top: 7rem;
   background-color: var(--clr-dark);
   padding: 3rem var(--global-padding);
+  position: relative;
+}
+
+#rings-contact {
+  position: absolute;
+  bottom: 4rem;
+  left: -12rem;
+}
+
+.contact-grid {
+  border-bottom: 2px solid var(--clr-light);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 0 4rem 0;
+  gap: 15%;
+}
+
+@media screen and (max-width: 1024px) {
+  .contact-grid {
+    align-items: center;
+    flex-direction: column;
+    padding: 0 0 4rem 0;
+    gap: 2rem;
+  }
+}
+
+.contact-text {
+  flex: 1;
 }
 
 .contact-text h2 {
@@ -648,5 +704,78 @@ nav ul li a img:hover {
   color: var(--clr-light);
   max-width: 27rem;
   padding: 1.5rem 0 0 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .contact-text {
+    text-align: center;
+  }
+}
+
+.contact-form {
+  flex: 1;
+}
+
+@media screen and (max-width: 1024px) {
+  .contact-form {
+    width: 80%;
+  }
+}
+
+@media screen and (max-width: 651px) {
+  .contact-form {
+    width: 100%;
+  }
+}
+
+.form-group {
+  margin: 0.3rem 0;
+}
+
+.form-group:nth-child(4) {
+  text-align: end;
+  margin: 1rem 0 0 0;
+}
+
+.form-group label {
+  color: var(--clr-light);
+  text-transform: uppercase;
+  display: block;
+  margin: 1rem 0 0 0;
+  width: 100%;
+  padding: 0 0 0 1rem;
+}
+
+.form-group input,
+.form-group textarea {
+  all: unset;
+  border-bottom: 2px solid var(--clr-light);
+  margin-bottom: -1px;
+  color: var(--clr-lighter);
+  padding: 1rem 0 0 0;
+  width: 100%;
+}
+
+.form-group textarea {
+  height: 4rem;
+}
+
+.form-group input[type='submit'] {
+  color: var(--clr-lighter);
+  text-transform: uppercase;
+  border-bottom: solid 2px var(--clr-green);
+  padding: 0 0 0.4rem 0;
+  transition: color 0.3s;
+  width: auto;
+  cursor: pointer;
+}
+
+.form-group input[type='submit']:hover {
+  color: var(--clr-green);
+}
+
+.form-group *:focus {
+  outline: 3px solid var(--clr-light);
+  border-radius: 5px;
 }
 </style>
