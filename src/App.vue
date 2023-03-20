@@ -64,9 +64,17 @@
 
         <div class="projects-grid">
           <div class="project" v-for="project in projects" :key="project.title">
-            <div class="project-img-view">
+            <div
+              class="project-img-view"
+              @mouseover="hoverEffect(project.title)"
+              @mouseout="outHoverEffect"
+            >
               <a href="#">
-                <div class="hover-links">
+                <div
+                  class="hover-links"
+                  :class="{ hoverGallery: isHover }"
+                  v-if="isHover === project.title"
+                >
                   <a href="#" target="_blank" class="contact">view project</a>
                   <a href="#" target="_blank" class="contact">view code</a>
                 </div>
@@ -97,18 +105,75 @@
         </div>
 
         <div class="contact-form">
-          <form action="post">
+          <form action="post" @submit.prevent="checkForm" novalidate="true">
             <div class="form-group">
               <label for="name">name</label>
-              <input type="text" name="name" id="name" minlength="3" required />
+              <input type="text" name="name" id="name" v-model="name" />
+              <!-- Error msg -->
+              <div class="error-icon" v-if="error === errors.name">
+                <svg
+                  width="800px"
+                  height="800px"
+                  viewBox="0 0 25 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12.5 16V14.5M12.5 9V13M20.5 12.5C20.5 16.9183 16.9183 20.5 12.5 20.5C8.08172 20.5 4.5 16.9183 4.5 12.5C4.5 8.08172 8.08172 4.5 12.5 4.5C16.9183 4.5 20.5 8.08172 20.5 12.5Z"
+                    stroke="#ff6f5b"
+                    stroke-width="1.2"
+                  />
+                </svg>
+              </div>
+              <div class="error-msg" v-if="error === errors.name">{{ error }}</div>
             </div>
             <div class="form-group">
               <label for="email">email</label>
-              <input type="email" name="email" id="email" required />
+              <input type="email" name="email" id="email" v-model="email" />
+              <!-- Error msg -->
+              <div class="error-icon" v-if="error === errors.email">
+                <svg
+                  width="800px"
+                  height="800px"
+                  viewBox="0 0 25 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12.5 16V14.5M12.5 9V13M20.5 12.5C20.5 16.9183 16.9183 20.5 12.5 20.5C8.08172 20.5 4.5 16.9183 4.5 12.5C4.5 8.08172 8.08172 4.5 12.5 4.5C16.9183 4.5 20.5 8.08172 20.5 12.5Z"
+                    stroke="#ff6f5b"
+                    stroke-width="1.2"
+                  />
+                </svg>
+              </div>
+              <div class="error-msg" v-if="error === errors.email">{{ error }}</div>
             </div>
             <div class="form-group">
               <label for="message">message</label>
-              <textarea name="message" id="message" cols="30" rows="10" required></textarea>
+              <textarea
+                name="message"
+                id="message"
+                cols="30"
+                rows="10"
+                v-model="message"
+              ></textarea>
+              <!-- Error msg -->
+              <div class="error-icon" v-if="error === errors.text">
+                <svg
+                  width="800px"
+                  height="800px"
+                  viewBox="0 0 25 25"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M12.5 16V14.5M12.5 9V13M20.5 12.5C20.5 16.9183 16.9183 20.5 12.5 20.5C8.08172 20.5 4.5 16.9183 4.5 12.5C4.5 8.08172 8.08172 4.5 12.5 4.5C16.9183 4.5 20.5 8.08172 20.5 12.5Z"
+                    stroke="#ff6f5b"
+                    stroke-width="1.2"
+                  />
+                </svg>
+              </div>
+              <div class="error-msg" v-if="error === errors.text">{{ error }}</div>
             </div>
             <div class="form-group">
               <input type="submit" value="send message" />
@@ -137,8 +202,38 @@
 <script>
 export default {
   name: 'App',
+  methods: {
+    checkForm() {
+      if (this.name && this.message && this.email) {
+        this.error = false;
+        alert('Your message has been sent!');
+      } else if (!this.name) {
+        this.error = this.errors.name;
+      } else if (!this.email) {
+        this.error = this.errors.email;
+      } else if (!this.text) {
+        this.error = this.errors.text;
+      }
+    },
+    hoverEffect(title) {
+      this.isHover = title;
+    },
+    outHoverEffect() {
+      this.isHover = false;
+    },
+  },
   data() {
     return {
+      name: null,
+      email: null,
+      message: null,
+      error: false,
+      errors: {
+        name: 'Please enter a valid name',
+        email: 'Sorry, invalid format here',
+        text: 'Please add some text',
+      },
+      isHover: false,
       socials: [
         {
           name: 'github',
@@ -618,7 +713,10 @@ nav ul li a img:hover {
 .project-img-view {
   position: relative;
 }
-
+.project-img-view img,
+.hover-links .img-gallery {
+  transition: 0.4s;
+}
 .project-img-view img:hover {
   opacity: 0.3;
 }
@@ -628,6 +726,7 @@ nav ul li a img:hover {
 }
 
 .hover-links {
+  visibility: hidden;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -649,6 +748,11 @@ nav ul li a img:hover {
     width: 100%;
     gap: 2rem;
   }
+}
+
+.hoverGallery {
+  visibility: visible;
+  animation: appear 1s;
 }
 
 .legend-txt {
@@ -680,6 +784,7 @@ nav ul li a img:hover {
   justify-content: space-between;
   padding: 0 0 4rem 0;
   gap: 15%;
+  overflow: hidden;
 }
 
 @media screen and (max-width: 1024px) {
@@ -730,6 +835,7 @@ nav ul li a img:hover {
 
 .form-group {
   margin: 0.3rem 0;
+  position: relative;
 }
 
 .form-group:nth-child(4) {
@@ -741,7 +847,7 @@ nav ul li a img:hover {
   color: var(--clr-light);
   text-transform: uppercase;
   display: block;
-  margin: 1rem 0 0 0;
+  margin: 2rem 0 0 0;
   width: 100%;
   padding: 0 0 0 1rem;
 }
@@ -752,12 +858,12 @@ nav ul li a img:hover {
   border-bottom: 2px solid var(--clr-light);
   margin-bottom: -1px;
   color: var(--clr-lighter);
-  padding: 1rem 0 0 0;
+  padding: 1rem 1rem;
   width: 100%;
 }
 
 .form-group textarea {
-  height: 4rem;
+  height: 3.5rem;
 }
 
 .form-group input[type='submit'] {
@@ -774,8 +880,30 @@ nav ul li a img:hover {
   color: var(--clr-green);
 }
 
-.form-group *:focus {
-  outline: 3px solid var(--clr-light);
-  border-radius: 5px;
+.error-icon {
+  position: absolute;
+  top: 1rem;
+  right: 0;
+}
+
+.error-icon svg {
+  width: 2.5rem;
+  height: auto;
+}
+
+.error-msg {
+  color: var(--clr-red);
+  font-size: var(--s-font-size);
+  text-align: right;
+  padding: 1rem 0 0 0;
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>
